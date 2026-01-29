@@ -19,7 +19,7 @@ function getComputerChoice(){
 		console.log(choice.toLowerCase());
 		return choice.toLowerCase();
 	} else {
-		return choice = "NAN";
+		return choice = "Not a valid option";
 	}
 };
 // getComputerChoice();
@@ -52,7 +52,7 @@ function singleRound(computerChoice, playerChoice){
 	console.log("Computer: " + ComputerScore);
 }
 
-function playRound(){
+function play5Rounds(){
 let roundCount = 5;
 	for (let i = 0; i < roundCount; i++){
 		singleRound(getComputerChoice(), getPlayerChoice())
@@ -60,11 +60,10 @@ let roundCount = 5;
 	if(PlayerScore == ComputerScore){
 		console.log("Final Draw, Computer: "+ ComputerScore + "Player: " + PlayerScore);
 	}else if(PlayerScore > ComputerScore){
-		console.log("Player wins, player score: " + PlayerScore);
+		console.log("Player wins, player score: " + PlayerScore + "Computer: " + ComputerScore); 
 	}else if(ComputerScore > PlayerScore){
-		console.log("Computer winds, computer score: " + ComputerScore);
+		console.log("Computer winds, computer score: " + ComputerScore + "Player: " + PlayerScore);
 	}
 	
 }
-playRound();
-
+play5Rounds();
