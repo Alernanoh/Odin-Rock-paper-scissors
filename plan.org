@@ -1,0 +1,18 @@
+* Rock paper scissors plan.
+** First write a function that gets teh computer choice.
+** Write some code that will randomly return one of the values: rock, paper, scissors.
+*** Math.random returns a random number that is greater than or equal to 0 and less than 1.
+** test that function returns what you expect using the console.log.
+** Write logic to get the human choice, write a function that takes the human input and returns it.
+** function named getHumanChoice will return one of the valid choices depending on what's the user input
+*** use prompt method to get the user input
+** Test it.
+** Declare the players score variables
+** write variables to keep track of the scores
+*** initialize those on 0
+** write the logic to play a single round
+** write a function that takes the choices as arguments, play a single round, increments the round winner's score and logs a winner announcement.
+** function called playRound with parameters humanChoice and computerChoice.
+** write the code of function to console.log a string value, representing the round winner.
+** increment the scores variable based on the round winner.
+** Play only 5 rounds.
