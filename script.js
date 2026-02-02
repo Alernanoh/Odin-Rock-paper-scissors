@@ -2,19 +2,33 @@ let PlayerScore = 0;
 let ComputerScore = 0;
 let playerChoice;
 let choice;
-let a;
+let randomGenerator;
+
+const container = document.querySelector("#container");
+const divFinalMessage = document.querySelector("#finalMessage");
+const divResponsePlayer = document.createElement("div");
+const divResponseComputer = document.createElement("div");
+const divPlayerCurrentScore = document.createElement("div");
+const divComputerCurrentScore = document.createElement("div");
+const divWinner = document.createElement("div");
+divResponsePlayer.classList.add("choice-display");
+divResponseComputer.classList.add("choice-display");
+divPlayerCurrentScore.classList.add("ascore-display", "player");
+divComputerCurrentScore.classList.add("score-display", "computer");
+divPlayerCurrentScore.classList.add("score", "player-score");
+divComputerCurrentScore.classList.add("score", "computer-score");
 
 function getComputerChoice() {
-	a = Math.random();
-	if (a >= 0 && a <= 0.33) {
+	randomGenerator = Math.random();
+	if (randomGenerator >= 0 && randomGenerator <= 0.33) {
 		choice = "Rock";
 		console.log(choice.toLowerCase());
 		return choice.toLocaleLowerCase();
-	} else if (a > 0.33 && a <= 0.66) {
+	} else if (randomGenerator > 0.33 && randomGenerator <= 0.66) {
 		choice = "Paper";
 		console.log(choice.toLowerCase());
 		return choice.toLowerCase();
-	} else if (a > 0.66 && a <= 0.9) {
+	} else if (randomGenerator > 0.66 && randomGenerator <= 1) {
 		choice = "Scissors";
 		console.log(choice.toLowerCase());
 		return choice.toLowerCase();
@@ -22,18 +36,9 @@ function getComputerChoice() {
 		return choice = "Not a valid option";
 	}
 };
-// getComputerChoice();
-
-function getPlayerChoice() {
-	playerChoice = prompt("Select your choice: ",);
-	console.log("Player choice: " + playerChoice.toLowerCase());
-	if (!playerChoice) return null;
-	return playerChoice.toLowerCase();
-};
-// getPlayerChoice();
 
 
-function singleRound(computerChoice, playerChoice) {
+function playRound(computerChoice, playerChoice) {
 	if (computerChoice == playerChoice) {
 		console.log("DRAW");
 		ComputerScore += 1;
@@ -41,35 +46,56 @@ function singleRound(computerChoice, playerChoice) {
 	} else if ((computerChoice == "rock" && playerChoice == "scissors") ||
 		(computerChoice == "paper" && playerChoice == "rock") ||
 		(computerChoice == "scissors" && playerChoice == "paper")) {
-		console.log("Computer wins");
 		ComputerScore += 1;
 	} else {
-		console.log("Player wins");
 		PlayerScore += 1;
 	}
-
-	console.log("Player: " + PlayerScore);
-	console.log("Computer: " + ComputerScore);
+	divComputerCurrentScore.textContent = "Computer Score: " + ComputerScore + " ";
+	divPlayerCurrentScore.textContent = "Player Score: " + PlayerScore + " ";
 }
 
 function play5Rounds() {
-	let roundCount = 5;
-	for (let i = 0; i < roundCount; i++) {
-		singleRound(getComputerChoice(), getPlayerChoice())
+	if (PlayerScore === 5) {
+		container.remove();
+		alert("Player wins with: " + PlayerScore + " points");
+		divFinalMessage.append(divWinner.textContent = "Player WINS, CONGRATS!!!");
+	} else if (ComputerScore === 5) {
+		container.remove();
+		alert("Computer wins with: " + ComputerScore + " points");
+		divFinalMessage.append(divWinner.textContent = "Computer WINS, Better luck next time :(");
 	}
-	if (PlayerScore == ComputerScore) {
-		console.log("Final Draw, Computer: " + ComputerScore + "Player: " + PlayerScore);
-	} else if (PlayerScore > ComputerScore) {
-		console.log("Player wins, player score: " + PlayerScore + "Computer: " + ComputerScore);
-	} else if (ComputerScore > PlayerScore) {
-		console.log("Computer winds, computer score: " + ComputerScore + " Player: " + PlayerScore);
-	}
-
 }
-// play5Rounds();
 
-const arr = [1, 2, 3, 4, 5];
-const mappedArr = arr.filter(arr => arr %2 === 0)
-.map(arr => arr * 3)
-.reduce((mappedArr, arr) => mappedArr + arr, 0);
-console.log(mappedArr);
+
+
+
+
+const btnRock = document.querySelector('#button_rock');
+btnRock.addEventListener("click", () => {
+	let computerChoice = getComputerChoice();
+	playRound(computerChoice, playerChoice = "rock");
+	divResponsePlayer.textContent = "Player Choice: " + playerChoice.charAt(0).toUpperCase() + playerChoice.slice(1);
+	divResponseComputer.textContent = "Computer choice: " + computerChoice
+	play5Rounds();
+});
+
+const btnPaper = document.querySelector('#button_paper');
+btnPaper.addEventListener("click", () => {
+	let computerChoice = getComputerChoice();
+	playRound(computerChoice, playerChoice = "paper")
+	divResponsePlayer.textContent = "Player Choice: " + playerChoice.charAt(0).toUpperCase() + playerChoice.slice(1);
+	divResponseComputer.textContent = "Computer choice: " + computerChoice
+	play5Rounds();
+});
+
+const btnScissors = document.querySelector('#button_scissors');
+btnScissors.addEventListener("click", () => {
+	let computerChoice = getComputerChoice();
+	playRound(computerChoice, playerChoice = "scissors")
+	divResponsePlayer.textContent = "Player Choice: " + playerChoice.charAt(0).toUpperCase() + playerChoice.slice(1);
+	divResponseComputer.textContent = "Computer choice: " + computerChoice
+	play5Rounds();
+});
+
+container.append(divResponsePlayer, divResponseComputer, divPlayerCurrentScore, divComputerCurrentScore);
+
